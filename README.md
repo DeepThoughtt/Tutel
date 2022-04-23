@@ -8,4 +8,5 @@ the subfolders, just check the corresponding option. This program is intended to
 the end of the file's name. <br/>
 
 This is an example of inputs you could insert before pressing the start button:
+
 ![tutel_menu](imgs/tutel_menu.jpeg)
