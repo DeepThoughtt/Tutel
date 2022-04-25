@@ -7,4 +7,4 @@ the start button. The program will copy the files in a newly created backup fold
 
 This is an example of inputs you could insert before pressing the start button:
 
-<img src = "imgs/tutel_menu.jpeg" width = "500" height = "200">
+<img src = "imgs/tutel_preview.jpeg" width = "500" height = "200">
