@@ -13,6 +13,7 @@ class Tutel:
         
         self.slash = "\\" if platform.system() == "Windows" else "/"
         self.root.iconbitmap(f".{self.slash}imgs{self.slash}tutel.ico")
+        self.root.bind("<Button-1>", self.remove_focus_from_entries)
         self.root.minsize(500, 160)
         self.root.geometry("")
         
@@ -68,6 +69,13 @@ class Tutel:
         self.root.protocol("WM_DELETE_WINDOW", self.__on_close)
         self.root.mainloop()
         
+        
+    def remove_focus_from_entries(self, event): 
+        event.widget.focus_set()
+        self.directory_entry.selection_clear()
+        self.from_entry.selection_clear()
+        self.to_entry.selection_clear()
+    
     
     def __directory_focus_in(self, event):
         self.directory_entry.delete(0, tk.END)
