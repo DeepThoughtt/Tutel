@@ -3,6 +3,8 @@ import shutil
 import threading
 import tkinter
 
+from src.entities.flags import Flags
+
 class MainWindow(tkinter.Tk):
 
     def __init__(self):
@@ -10,6 +12,7 @@ class MainWindow(tkinter.Tk):
         self.title("Tutel")
         self.iconbitmap()
 
+        self.flags = Flags()
         base_path = os.path.dirname(os.path.abspath(__file__))
         icon_path = os.path.join(base_path, "..", "..", "imgs", "tutel.ico")
 
@@ -80,10 +83,6 @@ class MainWindow(tkinter.Tk):
         self.update_label.pack()
         
         self.exec_thread = None
-        self.make_backups = False
-        self.recursive_mode = False
-        self.working = False
-
         self.protocol("WM_DELETE_WINDOW", self.__on_close)
 
     def remove_focus_from_entries(self, event): 
@@ -118,10 +117,10 @@ class MainWindow(tkinter.Tk):
             self.to_entry.insert(0, "To...")
     
     def __check_recursive_mode(self):
-        self.recursive = self.recursive_mode_flag.get() == 1
+        self.flags.recursive_mode = self.recursive_mode_flag.get() == 1
          
     def __check_create_backups(self):
-        self.make_backups = self.create_backups_flag.get() == 1
+        self.flags.create_backups = self.create_backups_flag.get() == 1
     
     def __start_conversion(self):
         self.start_button.focus_set()
@@ -133,10 +132,10 @@ class MainWindow(tkinter.Tk):
             
     def __stop_conversion(self):
         self.stop_button.focus_set()
-        self.working = False
+        self.flags.operation_in_progress = False
         
     def __on_close(self):
-        self.working = False
+        self.flags.operation_in_progress = False
         self.destroy()
     
     def __thread(self):
@@ -161,7 +160,7 @@ class MainWindow(tkinter.Tk):
     def __convert(self, directory, from_ext, to_ext):
         converted_elements = 0
     
-        if not self.recursive:
+        if not self.flags.recursive_mode:
             filenames = set(next(os.walk(directory, topdown = True))[2])
             converted_elements, stopped = self.__convert_directory_content(directory, filenames, from_ext, to_ext)
             return converted_elements, stopped
@@ -177,21 +176,21 @@ class MainWindow(tkinter.Tk):
         return converted_elements, False
         
     def __convert_directory_content(self, directory, filenames, from_ext, to_ext):
-        backup_directory = f"{directory}{self.slash}{from_ext}"
+        backup_directory = f"{directory}/{from_ext}"
         converted_elements = 0
         
         for element in filenames:
             if not self.working:
                 return converted_elements, True
                 
-            original_file = f"{directory}{self.slash}{element}"
+            original_file = f"{directory}/{element}"
             
             if element.lower().endswith(f".{from_ext}"):
-                if self.make_backups:
+                if self.flags.create_backups:
                     if not os.path.exists(backup_directory):
                         os.mkdir(backup_directory)
                 
-                    shutil.copyfile(original_file, f"{backup_directory}{self.slash}{element}")
+                    shutil.copyfile(original_file, f"{backup_directory}/{element}")
                 
                 filename = os.path.splitext(element)[0]
                 new_name = self.__create_new_name(directory, filename, to_ext, filenames)
@@ -204,10 +203,10 @@ class MainWindow(tkinter.Tk):
         
     def __create_new_name(self, directory, filename, to_ext, directory_content):
         if f"{filename}.{to_ext}" not in directory_content:
-            return f"{directory}{self.slash}{filename}.{to_ext}"
+            return f"{directory}/{filename}.{to_ext}"
         
         n = 1
         while f"{filename}_{n}.{to_ext}" in directory_content:
             n += 1
         
-        return f"{directory}{self.slash}{filename}_{n}.{to_ext}"
+        return f"{directory}/{filename}_{n}.{to_ext}"
