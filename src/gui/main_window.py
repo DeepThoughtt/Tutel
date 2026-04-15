@@ -14,7 +14,7 @@ class MainWindow(tkinter.Tk):
 
         self.flags = Flags()
         base_path = os.path.dirname(os.path.abspath(__file__))
-        icon_path = os.path.join(base_path, "..", "..", "imgs", "tutel.ico")
+        icon_path = os.path.join(base_path, "..", "..", "assets", "icons", "tutel.ico")
 
         self.iconbitmap(icon_path)
         self.bind("<Button-1>", self.remove_focus_from_entries)
