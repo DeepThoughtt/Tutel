@@ -30,17 +30,17 @@ class MainWindow(tkinter.Tk):
         self.directory_entry.bind("<Button-1>", self.directory_focus_in)
         self.directory_entry.bind("<FocusOut>", self.directory_focus_out)
 
-        self.from_entry = tkinter.Entry(self.data_frame)
-        self.from_entry.insert(0, "Convert From...")
-        self.from_entry.pack(fill = tkinter.X)
-        self.from_entry.bind("<Button-1>", self.from_focus_in)
-        self.from_entry.bind("<FocusOut>", self.from_focus_out)
+        self.from_ext_entry = tkinter.Entry(self.data_frame)
+        self.from_ext_entry.insert(0, "Convert From...")
+        self.from_ext_entry.pack(fill = tkinter.X)
+        self.from_ext_entry.bind("<Button-1>", self.from_ext_focus_in)
+        self.from_ext_entry.bind("<FocusOut>", self.from_ext_focus_out)
 
-        self.to_entry = tkinter.Entry(self.data_frame)
-        self.to_entry.insert(0, "To...")
-        self.to_entry.pack(fill = tkinter.X)
-        self.to_entry.bind("<Button-1>", self.to_focus_in)
-        self.to_entry.bind("<FocusOut>", self.to_focus_out)
+        self.to_ext_entry = tkinter.Entry(self.data_frame)
+        self.to_ext_entry.insert(0, "To...")
+        self.to_ext_entry.pack(fill = tkinter.X)
+        self.to_ext_entry.bind("<Button-1>", self.to_ext_focus_in)
+        self.to_ext_entry.bind("<FocusOut>", self.to_ext_focus_out)
 
         self.check_frame = tkinter.Frame(self.data_frame)
         self.check_frame.pack()
@@ -88,8 +88,8 @@ class MainWindow(tkinter.Tk):
     def remove_focus_from_entries(self, event):
         event.widget.focus_set()
         self.directory_entry.selection_clear()
-        self.from_entry.selection_clear()
-        self.to_entry.selection_clear()
+        self.from_ext_entry.selection_clear()
+        self.to_ext_entry.selection_clear()
     
     def directory_focus_in(self, event):
         self.directory_entry.delete(0, tkinter.END)
@@ -99,21 +99,21 @@ class MainWindow(tkinter.Tk):
             self.directory_entry.delete(0, tkinter.END)
             self.directory_entry.insert(0, "Directory")
     
-    def from_focus_in(self, event):
-        self.from_entry.delete(0, tkinter.END)
+    def from_ext_focus_in(self, event):
+        self.from_ext_entry.delete(0, tkinter.END)
     
-    def from_focus_out(self, event):
-        if self.from_entry.get().strip() == "":
-            self.from_entry.delete(0, tkinter.END)
-            self.from_entry.insert(0, "Convert From...")
+    def from_ext_focus_out(self, event):
+        if self.from_ext_entry_is_empty():
+            self.from_ext_entry.delete(0, tkinter.END)
+            self.from_ext_entry.insert(0, "Convert From...")
     
-    def to_focus_in(self, event):
-        self.to_entry.delete(0, tkinter.END)
+    def to_ext_focus_in(self, event):
+        self.to_ext_entry.delete(0, tkinter.END)
     
-    def to_focus_out(self, event):
-        if self.to_entry.get().strip() == "":
-            self.to_entry.delete(0, tkinter.END)
-            self.to_entry.insert(0, "To...")
+    def to_ext_focus_out(self, event):
+        if self.to_ext_entry_is_empty():
+            self.to_ext_entry.delete(0, tkinter.END)
+            self.to_ext_entry.insert(0, "To...")
     
     def check_recursive_mode(self):
         self.flags.recursive_mode = self.recursive_mode_flag.get() == 1
@@ -139,8 +139,8 @@ class MainWindow(tkinter.Tk):
     
     def thread(self):
         directory = self.directory_entry.get().strip()
-        from_ext = self.from_entry.get().strip().lower()
-        to_ext = self.to_entry.get().strip().lower()
+        from_ext = self.from_ext_entry.get().strip().lower()
+        to_ext = self.to_ext_entry.get().strip().lower()
         
         if not os.path.isdir(directory):
             self.update_label.config(text = "Invalid directory, retry")
@@ -158,3 +158,9 @@ class MainWindow(tkinter.Tk):
 
     def invalid_extensions(self, from_ext, to_ext):
         return from_ext == "" or to_ext == "" or " " in from_ext or " " in to_ext or to_ext == "To..."
+    
+    def to_ext_entry_is_empty(self):
+        return self.to_ext_entry.get().strip() == ""
+    
+    def from_ext_entry_is_empty(self):
+        return self.from_ext_entry.get().strip() == ""
