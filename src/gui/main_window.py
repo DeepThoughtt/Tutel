@@ -53,7 +53,7 @@ class MainWindow(tkinter.Tk):
             variable = self.recursive_mode_flag, 
             onvalue = 1, 
             offvalue = 0, 
-            command = self.check_recursive_mode
+            command = self.check_recursive_mode,
         )
         
         self.recursive_mode_check.grid(column = 0, row = 0)
@@ -65,7 +65,7 @@ class MainWindow(tkinter.Tk):
             variable = self.create_backups_flag, 
             onvalue = 1, 
             offvalue = 0, 
-            command = self.check_create_backups
+            command = self.check_create_backups,
         )
 
         self.make_backups_check.grid(column = 1, row = 0)
@@ -85,14 +85,14 @@ class MainWindow(tkinter.Tk):
         self.exec_thread = None
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
-    def remove_focus_from_entries(self, event): 
+    def remove_focus_from_entries(self, event):
         event.widget.focus_set()
         self.directory_entry.selection_clear()
         self.from_entry.selection_clear()
         self.to_entry.selection_clear()
     
     def directory_focus_in(self, event):
-        self.directory_entry.delete(0, tkinter.END) 
+        self.directory_entry.delete(0, tkinter.END)
     
     def directory_focus_out(self, event):
         if self.directory_entry.get().strip() == "":
@@ -124,8 +124,8 @@ class MainWindow(tkinter.Tk):
     def start_conversion(self):
         self.start_button.focus_set()
         
-        if not self.working:
-            self.working = True
+        if not self.flags.operation_in_progress:
+            self.operation_in_progress = True
             self.exec_thread = threading.Thread(target = self.thread)
             self.exec_thread.start()
             
@@ -144,14 +144,17 @@ class MainWindow(tkinter.Tk):
         
         if not os.path.isdir(directory):
             self.update_label.config(text = "Invalid directory, retry")
-            self.working = False
+            self.flags.operation_in_progress = False
             return
         
-        if from_ext == "" or to_ext == "" or " " in from_ext or " " in to_ext or to_ext == "To...":
+        if self.invalid_extensions(from_ext, to_ext):
             self.update_label.config(text = "No extensions found, retry")
-            self.working = False
+            self.flags.operation_in_progress = False
             return
     
         files_converted, stopped = AppBusiness.convert(directory, from_ext, to_ext, self.flags)
         self.update_label.config(text = f"Conversion {'stopped' if stopped else 'completed'}, {files_converted} {'file' if files_converted == 1 else 'files'} converted")
-        self.working = False
+        self.flags.operation_in_progress = False
+
+    def invalid_extensions(self, from_ext, to_ext):
+        return from_ext == "" or to_ext == "" or " " in from_ext or " " in to_ext or to_ext == "To..."
