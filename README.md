@@ -6,6 +6,10 @@ Start the program, write the directory where the files you want to convert are s
 
 This is an example of inputs you could insert before pressing the start button:
 
-<img src = "assets/images/tutel_preview1.jpeg" width = "500" height = "200">
+<img src = "assets/images/preview.jpeg" width = "500" height = "200">
 
 In this case we are converting the png images in "MyFolder" into jpeg images.
+
+## Icon
+You can find the icon used for this project here:
+<a href="https://www.flaticon.com/free-icons/turtle" title="turtle icons">Turtle icons created by Freepik - Flaticon</a>
