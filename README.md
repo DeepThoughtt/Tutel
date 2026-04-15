@@ -6,7 +6,7 @@ Start the program, write the directory where the files you want to convert are s
 
 This is an example of inputs you could insert before pressing the start button:
 
-<img src = "assets/images/preview.jpeg" width = "500" height = "200">
+<img src = ".github/images/preview.jpeg" width = "500" height = "200">
 
 In this case we are converting the txt files in the "Test" folder into sql files.
 
