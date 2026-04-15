@@ -1,8 +1,8 @@
 import os
-import shutil
 import threading
 import tkinter
 
+from src.business.app_business import AppBusiness
 from src.entities.flags import Flags
 
 class MainWindow(tkinter.Tk):
@@ -27,20 +27,20 @@ class MainWindow(tkinter.Tk):
         self.directory_entry = tkinter.Entry(self.data_frame)
         self.directory_entry.insert(0, "Directory")
         self.directory_entry.pack(fill = tkinter.X)
-        self.directory_entry.bind("<Button-1>", self.__directory_focus_in)
-        self.directory_entry.bind("<FocusOut>", self.__directory_focus_out)
+        self.directory_entry.bind("<Button-1>", self.directory_focus_in)
+        self.directory_entry.bind("<FocusOut>", self.directory_focus_out)
 
         self.from_entry = tkinter.Entry(self.data_frame)
         self.from_entry.insert(0, "Convert From...")
         self.from_entry.pack(fill = tkinter.X)
-        self.from_entry.bind("<Button-1>", self.__from_focus_in)
-        self.from_entry.bind("<FocusOut>", self.__from_focus_out)
+        self.from_entry.bind("<Button-1>", self.from_focus_in)
+        self.from_entry.bind("<FocusOut>", self.from_focus_out)
 
         self.to_entry = tkinter.Entry(self.data_frame)
         self.to_entry.insert(0, "To...")
         self.to_entry.pack(fill = tkinter.X)
-        self.to_entry.bind("<Button-1>", self.__to_focus_in)
-        self.to_entry.bind("<FocusOut>", self.__to_focus_out)
+        self.to_entry.bind("<Button-1>", self.to_focus_in)
+        self.to_entry.bind("<FocusOut>", self.to_focus_out)
 
         self.check_frame = tkinter.Frame(self.data_frame)
         self.check_frame.pack()
@@ -53,7 +53,7 @@ class MainWindow(tkinter.Tk):
             variable = self.recursive_mode_flag, 
             onvalue = 1, 
             offvalue = 0, 
-            command = self.__check_recursive_mode
+            command = self.check_recursive_mode
         )
         
         self.recursive_mode_check.grid(column = 0, row = 0)
@@ -65,7 +65,7 @@ class MainWindow(tkinter.Tk):
             variable = self.create_backups_flag, 
             onvalue = 1, 
             offvalue = 0, 
-            command = self.__check_create_backups
+            command = self.check_create_backups
         )
 
         self.make_backups_check.grid(column = 1, row = 0)
@@ -73,17 +73,17 @@ class MainWindow(tkinter.Tk):
         self.buttons_frame = tkinter.Frame(self)
         self.buttons_frame.pack()
 
-        self.start_button = tkinter.Button(self.buttons_frame, text = "START", command = self.__start_conversion)
+        self.start_button = tkinter.Button(self.buttons_frame, text = "START", command = self.start_conversion)
         self.start_button.grid(row = 0, column = 0)
         
-        self.stop_button = tkinter.Button(self.buttons_frame, text = "STOP", command = self.__stop_conversion)
+        self.stop_button = tkinter.Button(self.buttons_frame, text = "STOP", command = self.stop_conversion)
         self.stop_button.grid(row = 0, column = 1)
         
         self.update_label = tkinter.Label(self, text = "")
         self.update_label.pack()
         
         self.exec_thread = None
-        self.protocol("WM_DELETE_WINDOW", self.__on_close)
+        self.protocol("WM_DELETE_WINDOW", self.on_close)
 
     def remove_focus_from_entries(self, event): 
         event.widget.focus_set()
@@ -91,54 +91,53 @@ class MainWindow(tkinter.Tk):
         self.from_entry.selection_clear()
         self.to_entry.selection_clear()
     
-    def __directory_focus_in(self, event):
+    def directory_focus_in(self, event):
         self.directory_entry.delete(0, tkinter.END) 
     
-    def __directory_focus_out(self, event):
+    def directory_focus_out(self, event):
         if self.directory_entry.get().strip() == "":
             self.directory_entry.delete(0, tkinter.END)
             self.directory_entry.insert(0, "Directory")
     
-    def __from_focus_in(self, event):
+    def from_focus_in(self, event):
         self.from_entry.delete(0, tkinter.END)
-        
     
-    def __from_focus_out(self, event):
+    def from_focus_out(self, event):
         if self.from_entry.get().strip() == "":
             self.from_entry.delete(0, tkinter.END)
             self.from_entry.insert(0, "Convert From...")
     
-    def __to_focus_in(self, event):
+    def to_focus_in(self, event):
         self.to_entry.delete(0, tkinter.END)
     
-    def __to_focus_out(self, event):
+    def to_focus_out(self, event):
         if self.to_entry.get().strip() == "":
             self.to_entry.delete(0, tkinter.END)
             self.to_entry.insert(0, "To...")
     
-    def __check_recursive_mode(self):
+    def check_recursive_mode(self):
         self.flags.recursive_mode = self.recursive_mode_flag.get() == 1
          
-    def __check_create_backups(self):
+    def check_create_backups(self):
         self.flags.create_backups = self.create_backups_flag.get() == 1
     
-    def __start_conversion(self):
+    def start_conversion(self):
         self.start_button.focus_set()
         
         if not self.working:
             self.working = True
-            self.exec_thread = threading.Thread(target = self.__thread)
+            self.exec_thread = threading.Thread(target = self.thread)
             self.exec_thread.start()
             
-    def __stop_conversion(self):
+    def stop_conversion(self):
         self.stop_button.focus_set()
         self.flags.operation_in_progress = False
         
-    def __on_close(self):
+    def on_close(self):
         self.flags.operation_in_progress = False
         self.destroy()
     
-    def __thread(self):
+    def thread(self):
         directory = self.directory_entry.get().strip()
         from_ext = self.from_entry.get().strip().lower()
         to_ext = self.to_entry.get().strip().lower()
@@ -153,60 +152,6 @@ class MainWindow(tkinter.Tk):
             self.working = False
             return
     
-        files_converted, stopped = self.__convert(directory, from_ext, to_ext)
+        files_converted, stopped = AppBusiness.convert(directory, from_ext, to_ext)
         self.update_label.config(text = f"Conversion {'stopped' if stopped else 'completed'}, {files_converted} {'file' if files_converted == 1 else 'files'} converted")
         self.working = False
-        
-    def __convert(self, directory, from_ext, to_ext):
-        converted_elements = 0
-    
-        if not self.flags.recursive_mode:
-            filenames = set(next(os.walk(directory, topdown = True))[2])
-            converted_elements, stopped = self.__convert_directory_content(directory, filenames, from_ext, to_ext)
-            return converted_elements, stopped
-            
-        for path, directories, filenames in os.walk(directory):
-            filenames = set(filenames)
-            new_converted_elements, stopped = self.__convert_directory_content(path, filenames, from_ext, to_ext)
-            converted_elements += new_converted_elements
-            
-            if stopped:
-                return converted_elements, stopped
-            
-        return converted_elements, False
-        
-    def __convert_directory_content(self, directory, filenames, from_ext, to_ext):
-        backup_directory = f"{directory}/{from_ext}"
-        converted_elements = 0
-        
-        for element in filenames:
-            if not self.working:
-                return converted_elements, True
-                
-            original_file = f"{directory}/{element}"
-            
-            if element.lower().endswith(f".{from_ext}"):
-                if self.flags.create_backups:
-                    if not os.path.exists(backup_directory):
-                        os.mkdir(backup_directory)
-                
-                    shutil.copyfile(original_file, f"{backup_directory}/{element}")
-                
-                filename = os.path.splitext(element)[0]
-                new_name = self.__create_new_name(directory, filename, to_ext, filenames)
-                os.rename(original_file, new_name)
-                converted_elements += 1
-                
-                self.update_label.config(text = f"{converted_elements} {'file' if converted_elements == 1 else 'files'} converted")
-        
-        return converted_elements, False
-        
-    def __create_new_name(self, directory, filename, to_ext, directory_content):
-        if f"{filename}.{to_ext}" not in directory_content:
-            return f"{directory}/{filename}.{to_ext}"
-        
-        n = 1
-        while f"{filename}_{n}.{to_ext}" in directory_content:
-            n += 1
-        
-        return f"{directory}/{filename}_{n}.{to_ext}"
