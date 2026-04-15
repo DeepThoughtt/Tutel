@@ -152,6 +152,6 @@ class MainWindow(tkinter.Tk):
             self.working = False
             return
     
-        files_converted, stopped = AppBusiness.convert(directory, from_ext, to_ext)
+        files_converted, stopped = AppBusiness.convert(directory, from_ext, to_ext, self.flags)
         self.update_label.config(text = f"Conversion {'stopped' if stopped else 'completed'}, {files_converted} {'file' if files_converted == 1 else 'files'} converted")
         self.working = False
