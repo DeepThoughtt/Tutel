@@ -8,7 +8,7 @@ This is an example of inputs you could insert before pressing the start button:
 
 <img src = "assets/images/preview.jpeg" width = "500" height = "200">
 
-In this case we are converting the png images in "MyFolder" into jpeg images.
+In this case we are converting the txt files in the "Test" folder into sql files.
 
 ## Icon
 You can find the icon used for this project here:

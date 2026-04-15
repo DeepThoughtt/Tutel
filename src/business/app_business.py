@@ -9,12 +9,12 @@ class AppBusiness:
 
         if not flags.recursive_mode:
             filenames = set(next(os.walk(directory, topdown = True))[2])
-            converted_elements, stopped = AppBusiness.convert_directory_content(directory, filenames, from_ext, to_ext)
+            converted_elements, stopped = AppBusiness.convert_directory_content(directory, filenames, from_ext, to_ext, flags)
             return converted_elements, stopped
         
         for path, directories, filenames in os.walk(directory):
             filenames = set(filenames)
-            new_converted_elements, stopped = AppBusiness.convert_directory_content(path, filenames, from_ext, to_ext)
+            new_converted_elements, stopped = AppBusiness.convert_directory_content(path, filenames, from_ext, to_ext, flags)
             converted_elements += new_converted_elements
 
             if stopped:
@@ -24,7 +24,7 @@ class AppBusiness:
     
     @staticmethod
     def convert_directory_content(directory, filenames, from_ext, to_ext, flags):
-        backup_directory = f"{directory}/{from_ext}"
+        backup_directory = f"{directory}/{from_ext}_backup_folder"
         converted_elements = 0
         
         for element in filenames:

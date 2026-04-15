@@ -125,7 +125,7 @@ class MainWindow(tkinter.Tk):
         self.start_button.focus_set()
         
         if not self.flags.operation_in_progress:
-            self.operation_in_progress = True
+            self.flags.operation_in_progress = True
             self.exec_thread = threading.Thread(target = self.thread)
             self.exec_thread.start()
             
