@@ -1,0 +1,16 @@
+{
+    "data": "Data",
+    "directory": "Directory",
+    "convertFrom": "Convert from...",
+    "to": "To...",
+    "start": "START",
+    "stop": "STOP",
+    "checkSubfolders": "Check subfolders",
+    "createBackupFolders": "Create backup folders",
+    "invalidDirectory": "Invalid directory, retry",
+    "noExtensionsFound": "No extensions found, retry",
+    "conversionStoppedOneFileConverted": "Conversion stopped, 1 file converted",
+    "conversionStoppedMoreFilesConverted": "Conversion stopped, {n} files converted",
+    "conversionCompletedOneFileConverted": "Conversion completed, 1 file converted",
+    "conversionCompletedMoreFilesConverted": "Conversion completed, {n} files converted"
+}
