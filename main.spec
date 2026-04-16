@@ -10,7 +10,7 @@ sys.path.insert(0, project_root)
 
 datas = []
 datas += collect_data_files("assets")
-# TODO: datas += collect_data_files("l10n")
+datas += collect_data_files("l10n")
 
 a = Analysis(
     ['src/main.py'],
