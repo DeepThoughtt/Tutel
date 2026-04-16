@@ -82,6 +82,9 @@ class MainWindow(tkinter.Tk):
         
         self.update_label = tkinter.Label(self, text = "")
         self.update_label.pack()
+
+        self.version_label = tkinter.Label(self, text = f"v{settings['version']}", font = ("TkDefaultFont", 8))
+        self.version_label.pack(anchor = "se", padx = 5, pady = 5)
         
         self.exec_thread = None
         self.protocol("WM_DELETE_WINDOW", self.on_close)
