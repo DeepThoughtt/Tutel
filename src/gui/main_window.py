@@ -24,13 +24,7 @@ class MainWindow(tkinter.Tk):
         self.minsize(700, 200)
         self.geometry("")
 
-        menu_bar = tkinter.Menu(self)
-        languages_menu = tkinter.Menu(menu_bar, tearoff = 0)
-        languages_menu.add_command(label = "English", command = self.english_language_selected)
-        languages_menu.add_command(label = "Italiano", command = self.italian_language_selected)
-        menu_bar.add_cascade(label = localization["language"], menu = languages_menu)
-        self.config(menu = menu_bar)
-
+        self.build_menu()
         self.data_frame = tkinter.LabelFrame(self, text = localization["data"])
         self.data_frame.pack(fill = tkinter.BOTH, expand = True)
 
@@ -219,6 +213,9 @@ class MainWindow(tkinter.Tk):
         self.translate_widgets(old_directory_text, old_from_text, old_to_text)
 
     def translate_widgets(self, old_directory_text, old_from_text, old_to_text):
+        self.menu_bar.destroy()
+        self.build_menu()
+
         for key, widget in self.localized_widgets.items():
             widget.config(text = localization[key])
 
@@ -235,3 +232,11 @@ class MainWindow(tkinter.Tk):
             self.to_ext_entry.insert(0, localization["to"])
 
         self.update_label.config(text = "")
+
+    def build_menu(self):
+        self.menu_bar = tkinter.Menu(self)
+        self.languages_menu = tkinter.Menu(self.menu_bar, tearoff = 0)
+        self.languages_menu.add_command(label = "English", command = self.english_language_selected)
+        self.languages_menu.add_command(label = "Italiano", command = self.italian_language_selected)
+        self.menu_bar.add_cascade(label = localization["language"], menu = self.languages_menu)
+        self.config(menu = self.menu_bar)
