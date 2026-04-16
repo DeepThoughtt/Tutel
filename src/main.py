@@ -1,11 +1,11 @@
 import traceback
 
-from src.consts.icons import Icons
 from src.singletons.assets import assets
 from src.singletons.localization import localization
 from src.singletons.settings import settings
 from src.gui.main_window import MainWindow
 from src.utils.files import Files
+from src.consts.icons import Icons
 from src.utils.settings_checker import SettingsChecker
 
 def main():
