@@ -81,3 +81,8 @@ class Files:
 
         with open(path, "r") as localization:
             return json.load(localization)
+        
+    @staticmethod
+    def load_icon(icon_name):
+        base_path = os.path.dirname(os.path.abspath(__file__))
+        return os.path.join(base_path, "..", "..", "assets", "icons", icon_name)

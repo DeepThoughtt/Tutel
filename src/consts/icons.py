@@ -1,2 +1,2 @@
 class Icons:
-    TUTEL = 1
+    TUTEL = "tutel.ico"

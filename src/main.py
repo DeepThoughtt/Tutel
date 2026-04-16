@@ -1,4 +1,3 @@
-import os
 import traceback
 
 from src.consts.icons import Icons
@@ -12,11 +11,10 @@ from src.utils.settings_checker import SettingsChecker
 def main():
     SettingsChecker.fix_and_save(settings)
     localization.set_language(settings["language"])
-    base_path = os.path.dirname(os.path.abspath(__file__))
 
     assets.load_assets({
         "icons": {
-            Icons.TUTEL: os.path.join(base_path, "..", "assets", "icons", "tutel.ico"),
+            Icons.TUTEL: Files.load_icon(Icons.TUTEL),
         },
     })
 
