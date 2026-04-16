@@ -84,5 +84,4 @@ class Files:
         
     @staticmethod
     def load_icon(icon_name):
-        base_path = os.path.dirname(os.path.abspath(__file__))
-        return os.path.join(base_path, "..", "..", "assets", "icons", icon_name)
+        return Files.get_resource_path(f"assets/icons/{icon_name}")
