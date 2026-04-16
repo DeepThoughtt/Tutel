@@ -5,9 +5,11 @@ import tkinter
 from src.singletons.assets import assets
 from src.singletons.settings import settings
 from src.singletons.localization import localization
+from src.consts.languages import Languages
 from src.business.app_business import AppBusiness
 from src.entities.flags import Flags
 from src.consts.icons import Icons
+from src.utils.files import Files
 
 class MainWindow(tkinter.Tk):
 
@@ -19,8 +21,15 @@ class MainWindow(tkinter.Tk):
         self.flags = Flags()
         self.iconbitmap(assets.icons[Icons.TUTEL])
         self.bind("<Button-1>", self.remove_focus_from_entries)
-        self.minsize(500, 160)
+        self.minsize(700, 200)
         self.geometry("")
+
+        menu_bar = tkinter.Menu(self)
+        languages_menu = tkinter.Menu(menu_bar, tearoff = 0)
+        languages_menu.add_command(label = "English", command = self.english_language_selected)
+        languages_menu.add_command(label = "Italiano", command = self.italian_language_selected)
+        menu_bar.add_cascade(label = localization["language"], menu = languages_menu)
+        self.config(menu = menu_bar)
 
         self.data_frame = tkinter.LabelFrame(self, text = localization["data"])
         self.data_frame.pack(fill = tkinter.BOTH, expand = True)
@@ -85,6 +94,14 @@ class MainWindow(tkinter.Tk):
 
         self.version_label = tkinter.Label(self, text = f"v{settings['version']}", font = ("TkDefaultFont", 8))
         self.version_label.pack(anchor = "se", padx = 5, pady = 5)
+
+        self.localized_widgets = {
+            "data": self.data_frame,
+            "checkSubfolders": self.recursive_mode_check,
+            "createBackupFolders": self.make_backups_check,
+            "start": self.start_button,
+            "stop": self.stop_button,
+        }
         
         self.exec_thread = None
         self.protocol("WM_DELETE_WINDOW", self.on_close)
@@ -174,9 +191,47 @@ class MainWindow(tkinter.Tk):
             if files_converted == 1:
                 return localization["conversionStoppedOneFileConverted"]
             else:
-                return localization["conversionStoppedMoreFilesConverted"].format(n = files_converted)
+                return localization["conversionStoppedMultipleFilesConverted"].format(n = files_converted)
         
         if files_converted == 1:
             return localization["conversionCompletedOneFileConverted"]
         else:
-            return localization["conversionCompletedMoreFilesConverted"].format(n = files_converted)
+            return localization["conversionCompletedMultipleFilesConverted"].format(n = files_converted)
+        
+    def english_language_selected(self):
+        old_directory_text = localization["directory"]
+        old_from_text = localization["convertFrom"]
+        old_to_text = localization["to"]
+
+        settings["language"] = Languages.ENGLISH
+        Files.write_settings(settings)
+        localization.set_language(settings["language"])
+        self.translate_widgets(old_directory_text, old_from_text, old_to_text)
+
+    def italian_language_selected(self):
+        old_directory_text = localization["directory"]
+        old_from_text = localization["convertFrom"]
+        old_to_text = localization["to"]
+
+        settings["language"] = Languages.ITALIAN
+        Files.write_settings(settings)
+        localization.set_language(settings["language"])
+        self.translate_widgets(old_directory_text, old_from_text, old_to_text)
+
+    def translate_widgets(self, old_directory_text, old_from_text, old_to_text):
+        for key, widget in self.localized_widgets.items():
+            widget.config(text = localization[key])
+
+        if self.directory_entry.get().strip() == old_directory_text:
+            self.directory_entry.delete(0, tkinter.END)
+            self.directory_entry.insert(0, localization["directory"])
+
+        if self.from_ext_entry.get().strip() == old_from_text:
+            self.from_ext_entry.delete(0, tkinter.END)
+            self.from_ext_entry.insert(0, localization["convertFrom"])
+
+        if self.to_ext_entry.get().strip() == old_to_text:
+            self.to_ext_entry.delete(0, tkinter.END)
+            self.to_ext_entry.insert(0, localization["to"])
+
+        self.update_label.config(text = "")

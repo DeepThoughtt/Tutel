@@ -5,12 +5,13 @@
     "to": "To...",
     "start": "START",
     "stop": "STOP",
+    "language": "Language",
     "checkSubfolders": "Check subfolders",
     "createBackupFolders": "Create backup folders",
     "invalidDirectory": "Invalid directory, retry",
     "noExtensionsFound": "No extensions found, retry",
     "conversionStoppedOneFileConverted": "Conversion stopped, 1 file converted",
-    "conversionStoppedMoreFilesConverted": "Conversion stopped, {n} files converted",
+    "conversionStoppedMultipleFilesConverted": "Conversion stopped, {n} files converted",
     "conversionCompletedOneFileConverted": "Conversion completed, 1 file converted",
-    "conversionCompletedMoreFilesConverted": "Conversion completed, {n} files converted"
+    "conversionCompletedMultipleFilesConverted": "Conversion completed, {n} files converted"
 }

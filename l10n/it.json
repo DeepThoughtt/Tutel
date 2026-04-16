@@ -1,0 +1,17 @@
+{
+    "data": "Dati",
+    "directory": "Cartella",
+    "convertFrom": "Converti da...",
+    "to": "A...",
+    "start": "AVVIA",
+    "stop": "FERMA",
+    "language": "Lingua",
+    "checkSubfolders": "Controlla le sottocartelle",
+    "createBackupFolders": "Crea cartelle di backup",
+    "invalidDirectory": "Cartella non trovata, riprova",
+    "noExtensionsFound": "Estensioni non trovate, riprova",
+    "conversionStoppedOneFileConverted": "Conversione fermata, 1 file convertito",
+    "conversionStoppedMultipleFilesConverted": "Conversione fermata, {n} file convertiti",
+    "conversionCompletedOneFileConverted": "Conversione completata, 1 file convertito",
+    "conversionCompletedMultipleFilesConverted": "Conversione completata, {n} file convertiti"
+}
