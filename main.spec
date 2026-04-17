@@ -43,5 +43,4 @@ exe = EXE(
     runtime_tmpdir=None,
     console=False,
     icon='assets/icons/tutel.ico',
-    version='version.txt',
 )

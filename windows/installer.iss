@@ -1,11 +1,10 @@
 #define Publisher "DeepThoughtt"
 #define AppName "Tutel"
 #define Exe "Tutel.exe"
-#define Version GetFileVersion("..\dist\Tutel.exe")
 
 [Setup]
 AppName={#AppName}
-AppVersion={#Version}
+AppVersion=0.1.0
 AppPublisher={#Publisher}
 DefaultDirName={pf}\{#AppName}
 DefaultGroupName={#AppName}
