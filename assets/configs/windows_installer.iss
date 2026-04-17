@@ -20,21 +20,29 @@ LanguageDetectionMethod=locale
 DefaultLanguage=english
 
 [Languages]
-Name: "english"
-Name: "italian"
+Name: "english"; MessagesFile: "compiler:Default.isl"
+Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
 
 [Files]
-Source: "..\dist\Tutel.exe"
+Source: "..\dist\Tutel.exe"; DestDir: "{app}"
 
 [Icons]
-Name: "{group}\Tutel"
-Name: "{commondesktop}\Tutel"
+Name: "{group}\Tutel"; Filename: "{app}\{#Exe}"
+Name: "{commondesktop}\Tutel"; Filename: "{app}\{#Exe}"; Tasks: desktopicon
 
 [Tasks]
-Name: "desktopicon"
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalOptions}"; Flags: unchecked
+
+[CustomMessages]
+english.CreateDesktopIcon=Create a desktop icon
+italian.CreateDesktopIcon=Crea un'icona sul desktop
+english.AdditionalOptions=Additional options:
+italian.AdditionalOptions=Opzioni aggiuntive:
+english.RunTutel=Run Tutel
+italian.RunTutel=Avvia Tutel
 
 [UninstallDelete]
-Type: filesandordirs
+Type: filesandordirs; Name: "{app}"
 
 [Run]
-Filename: "{app}\{#Exe}"
+Filename: "{app}\{#Exe}"; Description: "{cm:RunTutel}"; Flags: nowait postinstall skipifsilent
