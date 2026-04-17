@@ -16,7 +16,6 @@ Compression=lzma
 SolidCompression=yes
 ArchitecturesInstallIn64BitMode=x64
 LanguageDetectionMethod=locale
-DefaultLanguage=english
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
