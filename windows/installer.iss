@@ -10,8 +10,9 @@ DefaultDirName={pf}\{#AppName}
 DefaultGroupName={#AppName}
 
 OutputDir=output
-OutputBaseFilename=TutelInstaller
+OutputBaseFilename=Tutel-Windows-Installer
 SetupIconFile=..\assets\icons\tutel.ico
+UninstallDisplayIcon={app}\Tutel.exe
 Compression=lzma
 SolidCompression=yes
 ArchitecturesInstallIn64BitMode=x64

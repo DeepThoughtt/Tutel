@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Tutel-Windows-Installer
-          path: windows/output/TutelInstaller.exe
+          path: windows/output/Tutel-Windows-Installer.exe
           retention-days: 1
 
 
