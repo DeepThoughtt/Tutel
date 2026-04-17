@@ -31,11 +31,19 @@ jobs:
         run: |
           pyinstaller main.spec
 
-      - name: Upload Windows artifact
-        uses: actions/upload-artifact@v6
+      - name: Install Inno Setup
+        run: |
+          choco install innosetup --yes
+      
+      - name: Build Windows Installer (.exe)
+        run: |
+          "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" assets\configs\windows_installer.iss
+
+      - name: Upload Windows Installer
+        uses: actions/upload-artifact@v4
         with:
-          name: Tutel-Windows
-          path: ./dist/Tutel.exe
+          name: Tutel-Windows-Installer
+          path: installer/output/TutelInstaller.exe
           retention-days: 1
 
 
