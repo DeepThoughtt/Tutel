@@ -37,13 +37,13 @@ jobs:
       
       - name: Build Windows Installer (.exe)
         run: |
-          "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" win-installer\config.iss
+          "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" windows\installer.iss
 
       - name: Upload Windows Installer
         uses: actions/upload-artifact@v4
         with:
           name: Tutel-Windows-Installer
-          path: win-installer/output/TutelInstaller.exe
+          path: windows/output/TutelInstaller.exe
           retention-days: 1
 
 
