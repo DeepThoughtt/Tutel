@@ -71,11 +71,21 @@ jobs:
         run: |
           pyinstaller main-linux.spec --noconfirm
 
+      - name: Install AppImage tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y appimagetool
+
+      - name: Build AppImage
+        run: |
+          chmod +x .linux/build_appimage.sh
+          bash .linux/build_appimage.sh
+
       - name: Upload Linux artifact
         uses: actions/upload-artifact@v6
         with:
-          name: Tutel-Linux
-          path: ./dist/Tutel
+          name: Tutel-Linux-AppImage
+          path: ./Tutel.AppImage
           retention-days: 1
 
 
