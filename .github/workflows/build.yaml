@@ -95,7 +95,7 @@ jobs:
       - name: Download Windows artifact
         uses: actions/download-artifact@v7
         with:
-          name: Tutel-Windows
+          name: Tutel-Windows-Installer
           path: release-files/windows
 
       - name: Download Linux artifact
