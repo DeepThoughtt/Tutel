@@ -35,9 +35,9 @@ jobs:
         run: |
           choco install innosetup --yes
       
-      - name: Build Windows Installer (.exe)
+      - name: Build Windows Installer
         run: |
-          "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" windows\installer.iss
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" windows\installer.iss
 
       - name: Upload Windows Installer
         uses: actions/upload-artifact@v4
