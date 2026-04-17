@@ -29,7 +29,7 @@ jobs:
 
       - name: Build Windows executable
         run: |
-          pyinstaller main.spec
+          pyinstaller main.spec --noconfirm
 
       - name: Install Inno Setup
         run: |
@@ -69,7 +69,7 @@ jobs:
 
       - name: Build Linux binary
         run: |
-          pyinstaller main.spec
+          pyinstaller main.spec --noconfirm
 
       - name: Upload Linux artifact
         uses: actions/upload-artifact@v6

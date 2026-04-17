@@ -24,7 +24,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
 
 [Files]
-Source: "..\dist\Tutel.exe"; DestDir: "{app}"
+Source: "..\dist\Tutel\*"; DestDir: "{app}"; Flags: recursesubdirs
 
 [Icons]
 Name: "{group}\Tutel"; Filename: "{app}\{#Exe}"

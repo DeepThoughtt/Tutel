@@ -44,3 +44,13 @@ exe = EXE(
     console=False,
     icon='assets/icons/tutel.ico',
 )
+
+coll = COLLECT(
+    exe,
+    a.binaries,
+    a.zipfiles,
+    a.datas,
+    strip=False,
+    upx=True,
+    name='Tutel'
+)
