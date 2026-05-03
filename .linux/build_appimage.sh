@@ -21,7 +21,7 @@ cp .linux/Tutel.desktop $APPDIR/
 cp .linux/Tutel.png $APPDIR/
 
 # Makes the app executable
-chmod +x $APPDIR/usr/bin/Tutel
+chmod +x $APPDIR/usr/bin/tutel
 
 # Creates the AppImage
 appimagetool $APPDIR Tutel.AppImage
