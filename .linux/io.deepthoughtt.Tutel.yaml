@@ -24,4 +24,5 @@ modules:
       - install -D ../../.linux/io.deepthoughtt.Tutel.png /app/share/icons/hicolor/256x256/apps/io.deepthoughtt.Tutel.png
     sources:
       - type: dir
-        path: ../dist/Tutel
+        path: ../dist/Tutel/
+        dest: .
