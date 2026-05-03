@@ -24,4 +24,4 @@ cp .linux/Tutel.png $APPDIR/
 chmod +x $APPDIR/usr/bin/tutel
 
 # Creates the AppImage
-appimagetool $APPDIR Tutel.AppImage
+appimagetool --appimage-extract-and-run $APPDIR Tutel.AppImage
