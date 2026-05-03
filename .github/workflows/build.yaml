@@ -81,7 +81,7 @@ jobs:
 
       - name: Build Flatpak
         run: |
-          flatpak-builder --user --force-clean build-dir .linux/io.deepthoughtt.Tutel.yaml
+          flatpak-builder --user --force-clean build-dir io.deepthoughtt.Tutel.yaml
           flatpak build-export repo build-dir
           flatpak build-bundle repo Tutel.flatpak io.deepthoughtt.Tutel
 
