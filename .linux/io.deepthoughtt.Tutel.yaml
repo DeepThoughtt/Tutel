@@ -16,13 +16,14 @@ modules:
   - name: tutel
     buildsystem: simple
     build-commands:
-      - install -D tutel /app/bin/tutel
-      - cp -r assets /app/bin/
-      - cp -r _internal /app/bin/
-      - cp -r l10n /app/bin/
+      - install -D tutel/tutel /app/bin/tutel
+      - cp -r tutel/assets /app/bin/
+      - cp -r tutel/_internal /app/bin/
+      - cp -r tutel/l10n /app/bin/
       - install -D ../../.linux/io.deepthoughtt.Tutel.desktop /app/share/applications/io.deepthoughtt.Tutel.desktop
       - install -D ../../.linux/io.deepthoughtt.Tutel.png /app/share/icons/hicolor/256x256/apps/io.deepthoughtt.Tutel.png
+
     sources:
       - type: dir
-        path: ../dist/Tutel/
-        dest: .
+        path: ../dist/Tutel
+        dest: tutel
