@@ -79,6 +79,9 @@ jobs:
           flatpak --user install -y flathub org.freedesktop.Platform//24.08
           flatpak --user install -y flathub org.freedesktop.Sdk//24.08
 
+      - name: Export dist path
+        run: echo "DIST_PATH=$(pwd)/dist/Tutel" >> $GITHUB_ENV
+
       - name: Build Flatpak
         run: |
           flatpak-builder --user --force-clean build-dir .linux/io.deepthoughtt.Tutel.yaml

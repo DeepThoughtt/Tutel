@@ -25,5 +25,5 @@ modules:
 
     sources:
       - type: dir
-        path: ../dist/Tutel
+        path: ${DIST_PATH}
         dest: tutel
