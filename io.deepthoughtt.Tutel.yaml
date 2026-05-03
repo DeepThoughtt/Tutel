@@ -20,10 +20,10 @@ modules:
       - cp -r tutel/assets /app/bin/
       - cp -r tutel/_internal /app/bin/
       - cp -r tutel/l10n /app/bin/
-      - install -D ../../.linux/io.deepthoughtt.Tutel.desktop /app/share/applications/io.deepthoughtt.Tutel.desktop
-      - install -D ../../.linux/io.deepthoughtt.Tutel.png /app/share/icons/hicolor/256x256/apps/io.deepthoughtt.Tutel.png
+      - install -D .linux/io.deepthoughtt.Tutel.desktop /app/share/applications/io.deepthoughtt.Tutel.desktop
+      - install -D .linux/io.deepthoughtt.Tutel.png /app/share/icons/hicolor/256x256/apps/io.deepthoughtt.Tutel.png
 
     sources:
       - type: dir
-        path: ${DIST_PATH}
+        path: dist/Tutel
         dest: tutel
