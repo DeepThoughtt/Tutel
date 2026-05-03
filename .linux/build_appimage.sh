@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+# Creates the AppImage-specific directory
 APPDIR=AppDir
 
 # Cleaning
