@@ -16,10 +16,9 @@ class MainWindow(tkinter.Tk):
     def __init__(self):
         super().__init__()
         self.title(settings["appName"])
-        self.iconbitmap()
+        self.iconbitmap(assets.icons[Icons.TUTEL])
 
         self.flags = Flags()
-        self.iconbitmap(assets.icons[Icons.TUTEL])
         self.bind("<Button-1>", self.remove_focus_from_entries)
         self.minsize(700, 200)
         self.geometry("")
