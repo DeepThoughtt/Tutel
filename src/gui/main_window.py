@@ -7,7 +7,7 @@ from src.singletons.settings import settings
 from src.singletons.localization import localization
 from src.consts.languages import Languages
 from src.business.app_business import AppBusiness
-from src.entities.flags import Flags
+from src.utils.flags import Flags
 from src.consts.icons import Icons
 from src.utils.files import Files
 
