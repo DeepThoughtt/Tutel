@@ -1,5 +1,3 @@
-from src.utils.files import Files
-
 class Assets:
 
     def __init__(self):
