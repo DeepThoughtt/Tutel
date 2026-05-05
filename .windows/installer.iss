@@ -4,7 +4,7 @@
 
 [Setup]
 AppName={#AppName}
-AppVersion=0.3.0
+AppVersion=1.0.0
 AppVerName={#AppName}
 AppPublisher={#Publisher}
 DefaultDirName={pf}\{#AppName}
