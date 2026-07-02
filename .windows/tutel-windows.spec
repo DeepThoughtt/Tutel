@@ -42,7 +42,7 @@ exe = EXE(
     upx_exclude=[],
     runtime_tmpdir=None,
     console=False,
-    icon="../assets/icons/tutel.icon",
+    icon="../assets/icons/tutel.ico",
 )
 
 coll = COLLECT(
