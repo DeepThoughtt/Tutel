@@ -3,14 +3,23 @@
 import os
 from PyInstaller.utils.hooks import collect_data_files, collect_submodules
 
-project_root = os.path.abspath(".")
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 import sys
 sys.path.insert(0, project_root)
 
+def collect_folder(folder):
+    result = []
+    for root, dirs, files in os.walk(folder):
+        for f in files:
+            full = os.path.join(root, f)
+            rel = os.path.relpath(full, project_root)
+            result.append((full, rel))
+    return result
+
 datas = []
-datas += collect_data_files(os.path.join(project_root, "assets"))
-datas += collect_data_files(os.path.join(project_root, "l10n"))
+datas += collect_folder(os.path.join(project_root, "assets"))
+datas += collect_folder(os.path.join(project_root, "l10n"))
 
 a = Analysis(
     [os.path.join(project_root, 'src/main.py')],
