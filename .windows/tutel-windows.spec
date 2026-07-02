@@ -3,7 +3,9 @@
 import os
 from PyInstaller.utils.hooks import collect_data_files, collect_submodules
 
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+spec_path = os.path.abspath(sys.argv[0])
+spec_dir = os.path.dirname(spec_path)
+project_root = os.path.abspath(os.path.join(spec_dir, '..'))
 
 import sys
 sys.path.insert(0, project_root)
