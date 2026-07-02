@@ -23,6 +23,16 @@ LanguageDetectionMethod=locale
 Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
 
+[CustomMessages]
+english.CreateDesktopIcon=Create a desktop icon
+italian.CreateDesktopIcon=Crea un'icona sul desktop
+english.AdditionalOptions=Additional options:
+italian.AdditionalOptions=Opzioni aggiuntive:
+english.RunTutel=Run Tutel
+italian.RunTutel=Avvia Tutel
+english.DeleteUserDataToo=Delete user data too
+italian.DeleteUserDataToo=Cancella anche i dati utente
+
 [Files]
 Source: "..\dist\Tutel\*"; DestDir: "{app}"; Flags: recursesubdirs
 
@@ -32,17 +42,17 @@ Name: "{commondesktop}\Tutel"; Filename: "{app}\{#Exe}"; Tasks: desktopicon
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalOptions}"; Flags: unchecked
+Name: "deleteuserdata"; Description: "{cm:DeleteUserDataToo}"; Flags: unchecked
 
-[CustomMessages]
-english.CreateDesktopIcon=Create a desktop icon
-italian.CreateDesktopIcon=Crea un'icona sul desktop
-english.AdditionalOptions=Additional options:
-italian.AdditionalOptions=Opzioni aggiuntive:
-english.RunTutel=Run Tutel
-italian.RunTutel=Avvia Tutel
+[Code]
+function ShouldDeleteUserData(): Boolean;
+begin
+  Result := WizardIsTaskSelected('deleteuserdata');
+end;
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}"
+Type: filesandordirs; Name: "{userappdata}\Tutel"; Check: ShouldDeleteUserData
 
 [Run]
 Filename: "{app}\{#Exe}"; Description: "{cm:RunTutel}"; Flags: nowait postinstall skipifsilent
