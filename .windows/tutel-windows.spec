@@ -9,15 +9,15 @@ import sys
 sys.path.insert(0, project_root)
 
 datas = []
-datas += collect_data_files("assets")
-datas += collect_data_files("l10n")
+datas += collect_data_files(os.path.join(project_root, "assets"))
+datas += collect_data_files(os.path.join(project_root, "l10n"))
 
 a = Analysis(
-    ['src/main.py'],
+    [os.path.join(project_root, 'src/main.py')],
     pathex=[project_root],
     binaries=[],
     datas=datas,
-    hiddenimports=collect_submodules('src'),
+    hiddenimports=collect_submodules(os.path.join(project_root, 'src')),
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -42,7 +42,7 @@ exe = EXE(
     upx_exclude=[],
     runtime_tmpdir=None,
     console=False,
-    icon='assets/icons/tutel.ico',
+    icon=os.path.join(project_root, 'assets', 'icons', 'tutel.ico'),
 )
 
 coll = COLLECT(
