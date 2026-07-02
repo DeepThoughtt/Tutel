@@ -13,7 +13,7 @@ datas += collect_data_files("assets")
 datas += collect_data_files("l10n")
 
 a = Analysis(
-    ['src/main.py'],
+    ['../src/main.py'],
     pathex=[project_root],
     binaries=[],
     datas=datas,
@@ -42,7 +42,7 @@ exe = EXE(
     upx_exclude=[],
     runtime_tmpdir=None,
     console=False,
-    icon="assets/icons/tutel.icon",
+    icon="../assets/icons/tutel.icon",
 )
 
 coll = COLLECT(
