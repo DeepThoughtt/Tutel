@@ -16,7 +16,6 @@ a = Analysis(
     ['../src/main.py'],
     binaries=[],
     datas=datas,
-    hiddenimports=collect_submodules("src"),
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
