@@ -14,7 +14,6 @@ datas += collect_data_files("l10n")
 
 a = Analysis(
     ['../src/main.py'],
-    pathex=[project_root],
     binaries=[],
     datas=datas,
     hiddenimports=collect_submodules("src"),
