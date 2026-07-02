@@ -30,8 +30,8 @@ english.AdditionalOptions=Additional options:
 italian.AdditionalOptions=Opzioni aggiuntive:
 english.RunTutel=Run Tutel
 italian.RunTutel=Avvia Tutel
-english.DeleteUserDataToo=Delete user data too
-italian.DeleteUserDataToo=Cancella anche i dati utente
+english.DeleteUserData=Do you want to delete the saved user data?
+italian.DeleteUserData=Vuoi cancellare i dati utente salvati?
 
 [Files]
 Source: "..\dist\Tutel\*"; DestDir: "{app}"; Flags: recursesubdirs
@@ -42,12 +42,23 @@ Name: "{commondesktop}\Tutel"; Filename: "{app}\{#Exe}"; Tasks: desktopicon
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalOptions}"; Flags: unchecked
-Name: "deleteuserdata"; Description: "{cm:DeleteUserDataToo}"; Flags: unchecked
 
 [Code]
+var
+  DeleteUserData: Boolean;
+
+procedure InitializeUninstall();
+begin
+  DeleteUserData :=
+    MsgBox(
+      "{cm:DeleteUserData}",
+      mbConfirmation, MB_YESNO or MB_DEFBUTTON2
+    ) = IDYES;
+end;
+
 function ShouldDeleteUserData(): Boolean;
 begin
-  Result := WizardIsTaskSelected('deleteuserdata');
+  Result := DeleteUserData;
 end;
 
 [UninstallDelete]
