@@ -49,7 +49,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
      mres : integer;
  begin
     case CurUninstallStep of                   
-      usUninstall:
+      usPostUninstall:
         begin
           mres := MsgBox(CustomMessage('DeleteUserData'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2)
           if mres = IDYES then
