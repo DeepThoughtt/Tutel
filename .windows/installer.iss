@@ -49,9 +49,9 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
      mres : integer;
  begin
     case CurUninstallStep of                   
-      usPostUninstall:
+      usUninstall:
         begin
-          mres := MsgBox('Do you want to Remove settings?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2)
+          mres := MsgBox(CustomMessage('DeleteUserData'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2)
           if mres = IDYES then
             DelTree(ExpandConstant('{userappdata}\Myapp'), True, True, True);
        end;
