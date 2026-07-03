@@ -44,26 +44,18 @@ Name: "{commondesktop}\Tutel"; Filename: "{app}\{#Exe}"; Tasks: desktopicon
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalOptions}"; Flags: unchecked
 
 [Code]
-var
-  DeleteUserData: Boolean;
-
-procedure InitializeUninstallProgressForm();
+function ConfirmDeleteUserData(): Boolean;
 begin
-  DeleteUserData :=
+  Result :=
     MsgBox(
       CustomMessage('DeleteUserData'),
       mbConfirmation, MB_YESNO or MB_DEFBUTTON2
     ) = IDYES;
 end;
 
-function ShouldDeleteUserData(): Boolean;
-begin
-  Result := DeleteUserData;
-end;
-
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}"
-Type: filesandordirs; Name: "{userappdata}\Tutel"; Check: ShouldDeleteUserData
+Type: filesandordirs; Name: "{userappdata}\Tutel"; Check: ConfirmDeleteUserData
 
 [Run]
 Filename: "{app}\{#Exe}"; Description: "{cm:RunTutel}"; Flags: nowait postinstall skipifsilent
