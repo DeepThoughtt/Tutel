@@ -47,7 +47,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 var
   DeleteUserData: Boolean;
 
-procedure InitializeUninstall();
+procedure InitializeUninstallProgressForm();
 begin
   DeleteUserData :=
     MsgBox(
