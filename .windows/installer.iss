@@ -53,7 +53,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
         begin
           mres := MsgBox(CustomMessage('DeleteUserData'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2)
           if mres = IDYES then
-            DelTree(ExpandConstant('{userappdata}\Myapp'), True, True, True);
+            DelTree(ExpandConstant('{userappdata}\Tutel'), True, True, True);
        end;
    end;
 end; 
