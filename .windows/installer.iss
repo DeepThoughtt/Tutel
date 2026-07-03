@@ -44,24 +44,22 @@ Name: "{commondesktop}\Tutel"; Filename: "{app}\{#Exe}"; Tasks: desktopicon
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalOptions}"; Flags: unchecked
 
 [Code]
-function ConfirmDeleteUserData(): Boolean;
-begin
-  if not Uninstalling then
-  begin
-    Result := False;
-    exit;
-  end;
-
-  Result :=
-    MsgBox(
-      CustomMessage('DeleteUserData'),
-      mbConfirmation, MB_YESNO or MB_DEFBUTTON2
-    ) = IDYES;
-end;
+ procedure CurUninstallStepChanged (CurUninstallStep: TUninstallStep);
+ var
+     mres : integer;
+ begin
+    case CurUninstallStep of                   
+      usPostUninstall:
+        begin
+          mres := MsgBox('Do you want to Remove settings?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2)
+          if mres = IDYES then
+            DelTree(ExpandConstant('{userappdata}\Myapp'), True, True, True);
+       end;
+   end;
+end; 
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}"
-Type: filesandordirs; Name: "{userappdata}\Tutel"; Check: ConfirmDeleteUserData
 
 [Run]
 Filename: "{app}\{#Exe}"; Description: "{cm:RunTutel}"; Flags: nowait postinstall skipifsilent
