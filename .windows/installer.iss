@@ -13,6 +13,7 @@ DefaultGroupName={#AppName}
 OutputDir=output
 OutputBaseFilename=Tutel-Windows-Installer
 SetupIconFile=..\assets\icons\tutel.ico
+LicenseFile=..\LICENSE
 UninstallDisplayIcon={app}\Tutel.exe
 Compression=lzma
 SolidCompression=yes
@@ -44,19 +45,19 @@ Name: "{commondesktop}\Tutel"; Filename: "{app}\{#Exe}"; Tasks: desktopicon
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalOptions}"; Flags: unchecked
 
 [Code]
- procedure CurUninstallStepChanged (CurUninstallStep: TUninstallStep);
- var
-     mres : integer;
- begin
-    case CurUninstallStep of                   
-      usPostUninstall:
-        begin
-          mres := MsgBox(CustomMessage('DeleteUserData'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2)
-          if mres = IDYES then
-            DelTree(ExpandConstant('{userappdata}\Tutel'), True, True, True);
-       end;
-   end;
-end; 
+procedure CurUninstallStepChanged (CurUninstallStep: TUninstallStep);
+var
+    mres : integer;
+begin
+  case CurUninstallStep of
+    usPostUninstall:
+      begin
+        mres := MsgBox(CustomMessage('DeleteUserData'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2)
+        if mres = IDYES then
+          DelTree(ExpandConstant('{userappdata}\Tutel'), True, True, True);
+      end;
+  end;
+end;
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}"
