@@ -51,7 +51,7 @@ procedure InitializeUninstall();
 begin
   DeleteUserData :=
     MsgBox(
-      "{cm:DeleteUserData}",
+      CustomMessage('DeleteUserData'),
       mbConfirmation, MB_YESNO or MB_DEFBUTTON2
     ) = IDYES;
 end;
