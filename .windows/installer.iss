@@ -46,6 +46,12 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Code]
 function ConfirmDeleteUserData(): Boolean;
 begin
+  if not Uninstalling then
+  begin
+    Result := False;
+    exit;
+  end;
+
   Result :=
     MsgBox(
       CustomMessage('DeleteUserData'),
