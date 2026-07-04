@@ -72,11 +72,10 @@ class Files:
             else:
                 locale_initials = system_locale[0].lower()[:2]
 
-                match locale_initials:
-                    case Languages.ITALIAN:
-                        default_settings["language"] = Languages.ITALIAN
-                    case _:
-                        default_settings["language"] = Languages.ENGLISH
+                if Languages.is_valid(locale_initials):
+                    default_settings["language"] = locale_initials
+                else:
+                    default_settings["language"] = Languages.ENGLISH
 
             with open(file_path, "w", encoding = "utf-8") as settings_file:
                 json.dump(default_settings, settings_file, ensure_ascii = False, indent = 4)
