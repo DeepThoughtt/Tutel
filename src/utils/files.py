@@ -3,6 +3,9 @@ import json
 import os
 import sys
 import pathlib
+import locale
+
+from src.consts.languages import Languages
 
 class Files:
 
@@ -58,8 +61,21 @@ class Files:
         file_path = path / "appsettings.json"
 
         # The file does not exist, so I copy the settings from the default settings file
+        # Note: I also have to find the right localization to use for the system
         if  not file_path.is_file():
             default_settings = Files.read_default_settings()
+            system_locale = locale.getlocale()
+
+            if system_locale == None:
+                default_settings["language"] = Languages.ENGLISH
+            
+            locale_initials = system_locale[0].lower()[:2]
+
+            match locale_initials:
+                case Languages.ITALIAN:
+                    default_settings["language"] = Languages.ITALIAN
+                case _:
+                    default_settings["language"] = Languages.ENGLISH
 
             with open(file_path, "w", encoding = "utf-8") as settings_file:
                 json.dump(default_settings, settings_file, ensure_ascii = False, indent = 4)
