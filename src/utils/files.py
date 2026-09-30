@@ -62,7 +62,7 @@ class Files:
 
         # The file does not exist, so I copy the settings from the default settings file
         # Note: I also have to find the right localization to use for the system
-        if  not file_path.is_file():
+        if not file_path.is_file():
             default_settings = Files.read_default_settings()
             system_locale = locale.getlocale()
 
